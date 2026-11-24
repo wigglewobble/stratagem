@@ -12,10 +12,11 @@ def run_simulation(
     score_a=0
     score_b=0
     history=[]
-
+    last_action_a=None
+    last_action_b=None
     for round_number in range(1,rounds+1):
-        action_a=strategy_a.choose_action()
-        action_b=strategy_b.choose_action()
+        action_a=strategy_a.choose_action(last_action_b)
+        action_b=strategy_b.choose_action(last_action_a)
 
         payoff_a,payoff_b=game.get_payoff(
             action_a,
@@ -31,6 +32,8 @@ def run_simulation(
             "payoff_a": payoff_a,
             "payoff_b": payoff_b,
         })
+        last_action_a=action_a
+        last_action_b=action_b
     return{
         "rounds": rounds,
         "score_a": score_a,

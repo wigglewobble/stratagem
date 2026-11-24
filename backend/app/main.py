@@ -7,6 +7,7 @@ from game_engine.strategies import(
     AlwaysCooperate,
     AlwaysDefect,
     RandomStrategy,
+    TitForTat,
 )
 from game_engine.simulation import run_simulation
 from game_engine.statistics import calculate_statistics
@@ -52,6 +53,7 @@ def simulate(request: SimulationRequest):
         "cooperate":AlwaysCooperate(),
         "defect":AlwaysDefect(),
         "random":RandomStrategy(),
+        "tit_for_tat":TitForTat(),
     }
     strategy_a=strategies.get(request.strategy_a)
     strategy_b=strategies.get(request.strategy_b)
