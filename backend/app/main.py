@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel,Field
 
 from game_engine.payoff import PayoffMatrix
@@ -57,9 +57,10 @@ def simulate(request: SimulationRequest):
     strategy_b=strategies.get(request.strategy_b)
 
     if strategy_a is None or strategy_b is None:
-        return{
-            "error": "Invalid strategy. Use cooperate, defect, or random."
-        }
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid strategy. Use cooperate, defect, or random."
+        )
     result=run_simulation(
         game,
         strategy_a,
